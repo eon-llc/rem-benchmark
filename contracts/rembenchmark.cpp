@@ -22,7 +22,7 @@ CONTRACT eosmechanics : public eosio::contract {
         [[eosio::action]] void cpu() {
             // Only let us run this
             require_auth(_self);
-            
+
             int p;
 
             //eosio::print_f("Mersenne primes:\n");
@@ -49,7 +49,7 @@ CONTRACT eosmechanics : public eosio::contract {
             for (i = 0; i < RAM_ROWS; i++) {
                 ramdata.emplace(_self, [&](auto& row) {
                     row.id = i;
-                    row.one = "aloha";
+                    row.one = "yeet";
                 });
             }
 
@@ -85,12 +85,12 @@ CONTRACT eosmechanics : public eosio::contract {
             BOOL prime = TRUE;
             const int to = sqrt(p);
             int i;
-            for (i = 3; i <= to; i += 2) {  
+            for (i = 3; i <= to; i += 2) {
                 if (!((prime = BOOL(p)) % i)) break;
             }
             return prime;
         }
-      
+
         BOOL is_mersenne_prime(int p) {
             if (p == 2) return TRUE;
 
