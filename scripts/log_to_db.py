@@ -31,6 +31,10 @@ def main():
 
                 transaction = get_transaction(record['transaction_id'])
 
+                # code is returned only in case of an error
+                if 'code' in transaction:
+                    continue
+
                 record['cpu_usage_us'] = transaction['trx']['receipt']['cpu_usage_us']
                 record['block_num'] = transaction['block_num']
 
