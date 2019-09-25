@@ -3,17 +3,16 @@ import os
 import json
 import requests
 import psycopg2
-import ciso8601
 
 api_url = 'https://testchain.remme.io'
 headers = {'content-type': 'application/json'}
 
-conn = psycopg2.connect(database='', user='', password='', host='', port='')
-sql = "INSERT INTO benchmarks() VALUES(%s)"
+conn = psycopg2.connect(database='vmlucgke', user='oalabncu', password='8gHvnpKDdBPXa44XjzmAMAwmCtLCfgei3qwiDUkq', host='52.0.126.177', port='5432')
+sql = "INSERT INTO benchmarks(producer, cpu_usage_us, transaction_id, block_num, created_on) VALUES(%(producer)s, %(cpu_usage_us)s, %(transaction_id)s, %(block_num)s, %(created_on)s)"
 
 def main():
 
-    filepath = 'actions.log'
+    filepath = '/root/rem-benchmark/scripts/actions.log'
     records = []
 
     if not os.path.isfile(filepath):
@@ -28,7 +27,7 @@ def main():
 
             if len(lines) > 4 and lines[4].startswith('executed'):
                 record['transaction_id'] = lines[4].split()[2]
-                record['created_on'] = ciso8601.parse_datetime(lines[0]).timetuple()
+                record['created_on'] = lines[1]
 
                 transaction = get_transaction(record['transaction_id'])
 
