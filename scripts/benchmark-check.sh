@@ -11,7 +11,7 @@ LOG_PATH="${SCRIPT_DIR}/log.txt"
 #---------------------------------
 if ! crontab -l | grep -q 'benchmark-check'
 then
-  (crontab -l ; echo "* * * * * ${FILE_PATH}" >> $LOG_PATH 2>&1) | crontab -
+  (crontab -l ; echo "* * * * * ${FILE_PATH} >> ${LOG_PATH} 2>&1") | crontab -
 fi
 
 #---------------------------------
