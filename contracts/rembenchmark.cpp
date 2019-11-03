@@ -12,7 +12,7 @@ typedef enum { FALSE=0, TRUE=1 } BOOL;
 
 using namespace eosio;
 
-CONTRACT eosmechanics : public eosio::contract {
+CONTRACT rembenchmark : public eosio::contract {
     public:
         using contract::contract;
 
@@ -116,4 +116,4 @@ CONTRACT eosmechanics : public eosio::contract {
 
 };
 
-EOSIO_DISPATCH(eosmechanics, (cpu)(ram)(net))
+EOSIO_DISPATCH(rembenchmark, (cpu)(ram)(net))
