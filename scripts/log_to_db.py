@@ -4,7 +4,7 @@ import json
 import requests
 import psycopg2
 
-api_url = 'https://testchain.remme.io'
+api_url = 'https://rem.eon.llc'
 headers = {'content-type': 'application/json'}
 table_name = ''
 
