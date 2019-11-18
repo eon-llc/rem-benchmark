@@ -8,7 +8,7 @@ api_url = 'https://rem.eon.llc'
 headers = {'content-type': 'application/json'}
 table_name = ''
 
-conn = psycopg2.connect(database='vmlucgke', user='oalabncu', password='8gHvnpKDdBPXa44XjzmAMAwmCtLCfgei3qwiDUkq', host='52.0.126.177', port='5432')
+conn = psycopg2.connect(database='', user='', password='', host='', port='')
 sql = "INSERT INTO {}(producer, cpu_usage_us, transaction_id, block_num, created_on) VALUES(%(producer)s, %(cpu_usage_us)s, %(transaction_id)s, %(block_num)s, %(created_on)s)".format(table_name)
 
 def main():
