@@ -3,6 +3,7 @@ import os
 import json
 import requests
 import psycopg2
+import time
 
 api_url = 'https://rem.eon.llc'
 headers = {'content-type': 'application/json'}
@@ -44,6 +45,7 @@ def main():
                 record['producer'] = block['producer']
 
                 records.append(record)
+                time.sleep(.100)
 
         cur = conn.cursor()
         cur.executemany(sql, records)
