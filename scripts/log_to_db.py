@@ -37,12 +37,11 @@ def main():
                 if 'code' in transaction:
                     continue
 
-                record['cpu_usage_us'] = transaction['trx']['receipt']['cpu_usage_us']
-                record['block_num'] = transaction['block_num']
-
-                block = get_block(record['block_num'])
-
-                record['producer'] = block['producer']
+                for action in transaction['actions']:
+                    if action['act']['account'] == 'rembenchmark' and action['act']['name'] == 'cpu':
+                        record['cpu_usage_us'] = action['cpu_usage_us']
+                        record['block_num'] = action['block_num']
+                        record['producer'] = action['producer']
 
                 records.append(record)
                 time.sleep(.100)
@@ -58,16 +57,9 @@ def main():
             pass
 
 def get_transaction(id):
-    url = api_url + '/v1/history/get_transaction'
-    payload = '{"id": "' + id + '"}'
-    request = requests.request("POST", url, data=payload, headers=headers)
-    response = request.json()
-    return response
-
-def get_block(id):
-    url = api_url + '/v1/chain/get_block'
-    payload = '{"block_num_or_id": "' + str(id) + '"}'
-    request = requests.request("POST", url, data=payload, headers=headers)
+    url = api_url + '/v2/history/get_transaction'
+    params = {'id': id}
+    request = requests.get(url, params=params)
     response = request.json()
     return response
 
