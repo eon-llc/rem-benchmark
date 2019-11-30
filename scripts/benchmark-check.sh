@@ -15,11 +15,14 @@ then
 fi
 
 #---------------------------------
+# SCHEDULE PYTHON IMPORTER AS CRON
+#---------------------------------
+if ! crontab -l | grep -q 'log_to_db'
+then
+  (crontab -l ; echo "* * * * * /usr/bin/flock -n /tmp/log_to_db.lockfile python /root/rem-benchmark/scripts/log_to_db.py") | crontab -
+fi
+
+#---------------------------------
 # RESTART LOOP IF IT IS NOT RUNNING
 #---------------------------------
 pgrep benchmark-loop >/dev/null 2>&1 || $LOOP_PATH &
-
-#---------------------------------
-# RUN LOG PROCESSOR
-#---------------------------------
-python $PROCESSOR_PATH
