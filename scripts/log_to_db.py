@@ -21,7 +21,7 @@ def main():
             print('File path {} does not exist. Exiting...'.format(filepath))
             sys.exit()
 
-    with  open(filepath, 'r') as fp:
+    with open(filepath, 'r') as fp:
         actions = fp.read()
         for action in actions.split('--action--'):
             record = {}
@@ -42,19 +42,20 @@ def main():
                         record['cpu_usage_us'] = action['cpu_usage_us']
                         record['block_num'] = action['block_num']
                         record['producer'] = action['producer']
+                        records.append(record)
+                        break
 
-                records.append(record)
-                time.sleep(.100)
+                time.sleep(0.100)
 
-        cur = conn.cursor()
-        cur.executemany(sql, records)
-        conn.commit()
-        cur.close()
-        conn.close()
+    cur = conn.cursor()
+    cur.executemany(sql, records)
+    conn.commit()
+    cur.close()
+    conn.close()
 
-        # empty the log file
-        with open(filepath, 'w'):
-            pass
+    # empty the log file
+    with open(filepath, 'w'):
+        pass
 
 def get_transaction(id):
     url = api_url + '/v2/history/get_transaction'
